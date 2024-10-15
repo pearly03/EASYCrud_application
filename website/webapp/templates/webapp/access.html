@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Some Webpage</h2>
+
+  <p>This is the content of the page that both employees and managers can view.</p>
+
+  {% if can_edit %}
+    <button>Edit this content</button>
+    <!-- More editable features for the manager -->
+  {% else %}
+    <p>You do not have permission to edit this content.</p>
+  {% endif %}
+{% endblock %}

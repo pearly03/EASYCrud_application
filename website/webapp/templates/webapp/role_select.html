@@ -1,0 +1,64 @@
+{% extends 'webapp/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+ 
+    <h2>Select your role</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        
+        <!-- Render the role choice field (with crispy forms if needed) -->
+        <div class="form-group">
+            {{ form.role.label_tag }} <br>
+            {{ form.role }}
+        </div>
+
+        <!-- The passcode field, hidden initially -->
+        <div class="form-group" id="passcode-field" style="display:none;">
+            {{ form.passcode.label_tag }} <br>
+            {{ form.passcode }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <!-- Display form validation errors if any -->
+    {% if form.errors %}
+    <ul>
+        {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- JavaScript to toggle the passcode field based on role selection -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get radio buttons and passcode field
+            const managerRadio = document.querySelector('input[value="manager"]');
+            const associateRadio = document.querySelector('input[value="associate"]');
+            const passcodeField = document.getElementById('passcode-field');
+
+            // Function to toggle the visibility of the passcode field
+            function togglePasscode() {
+                if (managerRadio.checked) {
+                    passcodeField.style.display = 'block';  // Show passcode field if Manager is selected
+                } else {
+                    passcodeField.style.display = 'none';   // Hide passcode field if Associate is selected
+                }
+            }
+
+            // Attach event listeners to the radio buttons
+            managerRadio.addEventListener('change', togglePasscode);
+            associateRadio.addEventListener('change', togglePasscode);
+
+            // Call togglePasscode once to set the initial state based on the selected role
+            togglePasscode();
+        });
+    </script>
+
+{% endblock %}

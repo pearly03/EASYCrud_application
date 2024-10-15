@@ -1,0 +1,43 @@
+{% extends 'webapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <header>
+        <h1>About Us</h1>
+    </header>
+    
+    <section>
+        <p>EasyCRUD is a web application designed to simplify CRUD (Create, Read, Update, Delete) operations, providing users with an intuitive and streamlined interface for managing data efficiently. Built using the Django framework, EasyCRUD focuses on effortless data management for various entities (like users, products, or records) within a system.</p>
+    </section>
+    
+    <hr>
+    
+    <section>
+        <h2>Our Objective</h2>
+        <ol>
+            <li>Create: A user-friendly form makes it simple for users to add new entries, such as contacts, records, or products.</li>
+            <li>Read: The program lets users see and search for records effectively by displaying data in a well-organized table format with pagination and sorting options.</li>
+            <li>Update: It's simple to maintain the data current because users can change previous items straight from the dashboard.</li>
+            <li>Delete: Data that is no longer needed can be easily removed from the system, ensuring that it is disposed of in a timely manner.</li>
+        </ol>
+    </section>
+    
+    <hr>
+    
+    <section>
+        <h2>Distinct Advantage</h2>
+        <ul>
+            <li>Access levels are managed depending on the role of the user, offering the choice between view-only and full CRUD capabilities.</li>
+            <li>User authentication (including the ability to log in and out) and customized dashboard experiences depending on the logged-in user are features of EasyCRUD.</li>
+            <li>Because of its responsive design, the program is easily navigable on a variety of devices.</li>
+        </ul>
+    </section>
+    
+    <hr>
+    
+    <footer>
+        <p>© EASYCrud. All rights reserved.</p>
+    </footer>
+
+{% endblock %}

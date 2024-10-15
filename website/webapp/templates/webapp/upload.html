@@ -1,0 +1,94 @@
+{% extends 'webapp/base.html' %}
+
+{% block content %}
+
+    <h2>Upload your PDF File</h2>
+
+    <!-- File upload form -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="file">File:</label>
+        {{ form.file }}  <!-- This displays the file input field -->
+        <br>
+        <br>
+        <button type="submit" name="upload_button">Upload PDF</button>
+        <br>
+        <br>
+    </form>
+
+    <!-- Display extracted data in a table if structured_data exists -->
+    {% if structured_data %}
+        <h3>Extracted Data</h3>
+        <form method="POST" onsubmit="prepareSaveData()">  <!-- onsubmit calls prepareSaveData before submit -->
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Country</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in structured_data %}
+                        <tr>
+                            <td>{{ row.first_name }}</td>
+                            <td>{{ row.last_name }}</td>
+                            <td>{{ row.email }}</td>
+                            <td>{{ row.phone }}</td>
+                            <td>{{ row.address }}</td>
+                            <td>{{ row.city }}</td>
+                            <td>{{ row.state }}</td>
+                            <td>{{ row.country }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Hidden input for passing structured data as JSON -->
+            <input type="hidden" id="data-input" name="data" value="">
+
+            <!-- Save Button -->
+            <button type="submit" name="save_button">Save to Dashboard</button>
+        </form>
+    {% endif %}
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+
+    <script>
+        // Prepare and serialize structured_data as JSON before form submission
+        function prepareSaveData() {
+            // Ensure structured_data is serialized safely
+            var structuredData = {{ structured_data | safe }};
+            document.getElementById('data-input').value = JSON.stringify(structuredData);  // Store serialized JSON
+        }
+    </script>
+
+{% endblock %}
