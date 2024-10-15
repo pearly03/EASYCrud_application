@@ -3,7 +3,7 @@ from . forms import NewAccountForm,LoginPageForm,AddRecord,UpdateRecord,UploadDo
 from django.contrib.auth.models import auth
 
 from django.contrib.auth import authenticate
-
+from django.contrib.auth.models import auth
 from django.contrib.auth import login as auth_login
 
 from django.contrib.auth.decorators import login_required
